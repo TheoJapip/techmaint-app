@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TechMaint - Συντήρηση Βιομηχανικού Εξοπλισμού</title>
+  
+  <!-- Βιβλιοθήκη CSS του Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  
+  <!-- Το δικό μας αρχείο στυλ -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Κεντρικό Πλαίσιο Mobile Εφαρμογής -->
+  <div class="app-container">
+
+    <!-- Κεφαλίδα (Header) -->
+    <header class="app-header">
+      <h1>TechMaint</h1>
+      <p>Συντήρηση Βιομηχανικού Εξοπλισμού</p>
+    </header>
+
+    <!-- ==========================================
+         ΟΘΟΝΗ 1: ΑΡΧΙΚΗ
+         ========================================== -->
+    <section id="screen-home" class="screen active">
+      <div class="card intro-card">
+        <h2>Καλωσορίσατε στο TechMaint</h2>
+        <p>
+          Η εφαρμογή υποστηρίζει τεχνικούς και μηχανικούς στην άμεση αναζήτηση 
+          υπηρεσιών συντήρησης βιομηχανικού εξοπλισμού, την υποβολή αιτημάτων 
+          τεχνικής υποστήριξης και τον εντοπισμό σημείων εξυπηρέτησης.
+        </p>
+        <button class="btn-accent" onclick="showScreen('screen-form')">
+          + Αίτημα Υποστήριξης
+        </button>
+      </div>
+
+      <h3>Βασικές Λειτουργίες</h3>
+
+      <div class="card nav-card" onclick="showScreen('screen-services')">
+        <h4>1. Υπηρεσίες Συντήρησης</h4>
+        <p>Προληπτική συντήρηση, επισκευές βλαβών και τεχνική διάγνωση.</p>
+        <span class="link-text">Προβολή υπηρεσιών &rarr;</span>
+      </div>
+
+      <div class="card nav-card" onclick="showScreen('screen-map')">
+        <h4>2. Διαδραστικός Χάρτης Εξυπηρέτησης</h4>
+        <p>Εντοπισμός εξουσιοδοτημένων σημείων τεχνικής υποστήριξης.</p>
+        <span class="link-text">Άνοιγμα χάρτη &rarr;</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         ΟΘΟΝΗ 2: ΥΠΗΡΕΣΙΕΣ ΣΥΝΤΗΡΗΣΗΣ
+         ========================================== -->
+    <section id="screen-services" class="screen">
+      <button class="btn-back" onclick="goBack()">&larr; Επιστροφή</button>
+      <h2>Υπηρεσίες Συντήρησης</h2>
+      <p class="subtitle">Επιλέξτε κατηγορία υπηρεσίας για να υποβάλετε αίτημα:</p>
+
+      <div class="card">
+        <h3>Προληπτική Συντήρηση</h3>
+        <p>
+          Τακτικός έλεγχος, λίπανση, βαθμονόμηση αισθητήρων και αντικατάσταση 
+          αναλωσίμων σε γραμμές παραγωγής και CNC, με στόχο την αποφυγή βλαβών.
+        </p>
+        <button class="btn-primary" onclick="selectService('Προληπτική Συντήρηση')">
+          Επιλογή Υπηρεσίας
+        </button>
+      </div>
+
+      <div class="card">
+        <h3>Επισκευές Εξοπλισμού</h3>
+        <p>
+          Άμεση αποκατάσταση μηχανολογικών, υδραυλικών ή ηλεκτρολογικών βλαβών 
+          σε βιομηχανικά μηχανήματα, κινητήρες και ταινιόδρομους.
+        </p>
+        <button class="btn-primary" onclick="selectService('Επισκευές Εξοπλισμού')">
+          Επιλογή Υπηρεσίας
+        </button>
+      </div>
+
+      <div class="card">
+        <h3>Τεχνική Διάγνωση</h3>
+        <p>
+          Εξειδικευμένος έλεγχος με θερμοκάμερα, ανάλυση κραδασμών και 
+          διαγνωστικός έλεγχος PLC / αυτοματισμών για εντοπισμό σφαλμάτων.
+        </p>
+        <button class="btn-primary" onclick="selectService('Τεχνική Διάγνωση')">
+          Επιλογή Υπηρεσίας
+        </button>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         ΟΘΟΝΗ 3: ΑΙΤΗΜΑ ΥΠΟΣΤΗΡΙΞΗΣ
+         ========================================== -->
+    <section id="screen-form" class="screen">
+      <button class="btn-back" onclick="goBack()">&larr; Επιστροφή</button>
+      <h2>Αίτημα Υποστήριξης</h2>
+      <p class="subtitle">Συμπληρώστε τα παρακάτω πεδία για αναφορά βλάβης ή συντήρησης.</p>
+
+      <form id="support-form" onsubmit="submitForm(event)" novalidate>
+        
+        <!-- ΔΥΝΑΜΙΚΟ ΠΕΔΙΟ: Κατηγορία Υπηρεσίας -->
+        <div class="form-group">
+          <label for="service-category">Κατηγορία Υπηρεσίας *</label>
+          <div style="display: flex; gap: 8px;">
+            <select id="service-category" required>
+              <option value="">-- Επιλέξτε Υπηρεσία --</option>
+              <option value="Προληπτική Συντήρηση">Προληπτική Συντήρηση</option>
+              <option value="Επισκευές Εξοπλισμού">Επισκευές Εξοπλισμού</option>
+              <option value="Τεχνική Διάγνωση">Τεχνική Διάγνωση</option>
+            </select>
+            <!-- Κουμπί Καθαρισμού -->
+            <button type="button" class="btn-back" style="margin:0; min-height:46px; border: 1px solid #9ca3af;" onclick="document.getElementById('service-category').value=''">Χ</button>
+          </div>
+        </div>
+
+        <!-- ΔΥΝΑΜΙΚΟ ΠΕΔΙΟ: Εγκατάσταση / Τοποθεσία -->
+        <div class="form-group">
+          <label for="location-select">Εγκατάσταση / Σημείο Εξυπηρέτησης *</label>
+          <div style="display: flex; gap: 8px;">
+            <select id="location-select" required>
+              <option value="">-- Επιλέξτε Εγκατάσταση --</option>
+              <option value="Κέντρο Αιγάλεω">Κέντρο Δυτικής Αττικής (Αιγάλεω)</option>
+              <option value="Σταθμός Ασπροπύργου">Βιομηχανικός Σταθμός Ασπροπύργου</option>
+              <option value="Τεχνική Βάση Πειραιά">Τεχνική Βάση Πειραιά</option>
+            </select>
+            <!-- Κουμπί Καθαρισμού -->
+            <button type="button" class="btn-back" style="margin:0; min-height:46px; border: 1px solid #9ca3af;" onclick="document.getElementById('location-select').value=''">Χ</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="equipment">Τύπος Εξοπλισμού *</label>
+          <select id="equipment" required>
+            <option value="">-- Επιλέξτε εξοπλισμό --</option>
+            <option value="Εργαλειομηχανή CNC">Εργαλειομηχανή CNC</option>
+            <option value="Σύστημα PLC / Αυτοματισμός">Σύστημα PLC / Αυτοματισμός</option>
+            <option value="Υδραυλική Πρέσα">Υδραυλική Πρέσα</option>
+            <option value="Βιομηχανικός Αεροσυμπιεστής">Βιομηχανικός Αεροσυμπιεστής</option>
+            <option value="Ταινιόδρομος Παραγωγής">Ταινιόδρομος Παραγωγής</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="description">Περιγραφή Προβλήματος / Αιτήματος *</label>
+          <textarea id="description" rows="4" placeholder="Περιγράψτε τη βλάβη ή την επιθυμητή εργασία συντήρησης..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="priority">Προτεραιότητα *</label>
+          <select id="priority" required>
+            <option value="">-- Επιλέξτε προτεραιότητα --</option>
+            <option value="Χαμηλή (Προγραμματισμένη)">Χαμηλή (Προγραμματισμένη)</option>
+            <option value="Μεσαία (εντός 24 ωρών)">Μεσαία (εντός 24 ωρών)</option>
+            <option value="Υψηλή / Επείγουσα (Διακοπή Παραγωγής)">Υψηλή / Επείγουσα (Διακοπή Παραγωγής)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="contact-name">Ονοματεπώνυμο *</label>
+          <input type="text" id="contact-name" placeholder="π.χ. Γιώργος Παπαδόπουλος" required>
+        </div>
+
+        <div class="form-group">
+          <label for="contact-phone">Τηλέφωνο Επικοινωνίας *</label>
+          <input type="tel" id="contact-phone" placeholder="π.χ. 6912345678" maxlength="10" pattern="[0-9]{10}" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
+        </div>
+
+        <p id="form-error" class="error-message" style="display: none;"></p>
+
+        <button type="submit" class="btn-accent">Υποβολή Αιτήματος</button>
+      </form>
+
+      <div id="confirmation-box" class="card confirmation-card" style="display: none;">
+        <h3>✔ Επιτυχής Υποβολή Αιτήματος!</h3>
+        <p>Το αίτημά σας καταχωρήθηκε επιτυχώς (προσομοίωση).</p>
+        <div id="confirmation-details" class="summary-box"></div>
+        <button class="btn-primary" onclick="resetSupportForm()">Νέο Αίτημα</button>
+        <button class="btn-secondary" onclick="showScreen('screen-home')">Επιστροφή στην Αρχική</button>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         ΟΘΟΝΗ 4: ΔΙΑΔΡΑΣΤΙΚΟΣ ΧΑΡΤΗΣ
+         ========================================== -->
+    <section id="screen-map" class="screen">
+      <button class="btn-back" onclick="goBack()">&larr; Επιστροφή</button>
+      <h2>Σημεία Τεχνικής Εξυπηρέτησης</h2>
+      <p class="subtitle">Πατήστε σε έναν δείκτη (marker) στον χάρτη για πληροφορίες και υποβολή αιτήματος:</p>
+
+      <div id="map"></div>
+
+      <div class="card">
+        <h4>Διαθέσιμα Κέντρα Υποστήριξης:</h4>
+        <ul class="station-list">
+          <li><strong>Κέντρο Δυτικής Αττικής (Αιγάλεω):</strong> Υποστήριξη PLC & Αυτοματισμών</li>
+          <li><strong>Βιομηχανικός Σταθμός Ασπροπύργου:</strong> Βαριά Μηχανήματα & Υδραυλικά</li>
+          <li><strong>Τεχνική Βάση Πειραιά:</strong> Ηλεκτρομηχανολογικές Επισκευές</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Κάτω Μενού Πλοήγησης -->
+    <nav class="bottom-nav">
+      <button id="nav-home" class="nav-btn active-nav" onclick="showScreen('screen-home')">Αρχική</button>
+      <button id="nav-services" class="nav-btn" onclick="showScreen('screen-services')">Υπηρεσίες</button>
+      <button id="nav-form" class="nav-btn" onclick="showScreen('screen-form')">Αίτημα</button>
+      <button id="nav-map" class="nav-btn" onclick="showScreen('screen-map')">Χάρτης</button>
+    </nav>
+
+  </div>
+
+  <!-- Βιβλιοθήκη JS του Leaflet -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Το δικό μας αρχείο JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>

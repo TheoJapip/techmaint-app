@@ -1,0 +1,263 @@
+/* Βασικές ρυθμίσεις (Reset & Τυπογραφία) */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #d1d5db;
+  color: #1f2937;
+  line-height: 1.5;
+}
+
+/* Κεντρικό πλαίσιο mobile-first (μέγιστο πλάτος 420px) */
+.app-container {
+  max-width: 420px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background-color: #f3f4f6;
+  padding-bottom: 75px; /* Χώρος για το κάτω μενού */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Κεφαλίδα (Header) */
+.app-header {
+  background-color: #1e3a8a;
+  color: #ffffff;
+  padding: 16px;
+  text-align: center;
+}
+
+.app-header h1 {
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+
+.app-header p {
+  font-size: 13px;
+  color: #dbeafe;
+}
+
+/* Οθόνες (Εμφανίζεται μόνο όποια έχει την κλάση .active) */
+.screen {
+  display: none;
+  padding: 16px;
+}
+
+.screen.active {
+  display: block;
+}
+
+h2 {
+  font-size: 20px;
+  color: #1e3a8a;
+  margin-bottom: 6px;
+}
+
+h3 {
+  font-size: 17px;
+  margin: 14px 0 8px 0;
+  color: #1f2937;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #4b5563;
+  margin-bottom: 14px;
+}
+
+/* Κάρτες περιεχομένου */
+.card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 14px;
+  border: 1px solid #e5e7eb;
+}
+
+.card h4 {
+  color: #1e3a8a;
+  margin-bottom: 6px;
+}
+
+.card p {
+  font-size: 14px;
+  color: #374151;
+  margin-bottom: 12px;
+}
+
+.nav-card {
+  cursor: pointer;
+}
+
+.link-text {
+  font-size: 14px;
+  font-weight: bold;
+  color: #1e3a8a;
+}
+
+/* Κουμπιά (Ελάχιστο ύψος 48px για εύκολη αφή σε κινητό) */
+button {
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-accent {
+  width: 100%;
+  min-height: 48px;
+  background-color: #d97706;
+  color: #ffffff;
+  padding: 12px;
+}
+
+.btn-primary {
+  width: 100%;
+  min-height: 46px;
+  background-color: #1e3a8a;
+  color: #ffffff;
+  padding: 10px;
+}
+
+.btn-secondary {
+  width: 100%;
+  min-height: 46px;
+  background-color: #6b7280;
+  color: #ffffff;
+  padding: 10px;
+  margin-top: 8px;
+}
+
+.btn-back {
+  background-color: #e5e7eb;
+  color: #1f2937;
+  padding: 8px 14px;
+  margin-bottom: 12px;
+  min-height: 40px;
+  font-size: 14px;
+}
+
+/* Φόρμα Υποστήριξης */
+.form-group {
+  margin-bottom: 14px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  min-height: 46px;
+  padding: 10px;
+  font-size: 15px;
+  border: 1px solid #9ca3af;
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+.info-banner {
+  background-color: #dbeafe;
+  color: #1e3a8a;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 14px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.error-message {
+  color: #dc2626;
+  background-color: #fee2e2;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.confirmation-card {
+  border: 2px solid #16a34a;
+  background-color: #f0fdf4;
+}
+
+.confirmation-card h3 {
+  color: #15803d;
+}
+
+.summary-box {
+  background-color: #ffffff;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 14px;
+  font-size: 14px;
+  border: 1px solid #bbf7d0;
+}
+
+/* Διαδραστικός Χάρτης Leaflet */
+#map {
+  width: 100%;
+  height: 300px;
+  border-radius: 8px;
+  border: 1px solid #9ca3af;
+  margin-bottom: 14px;
+}
+
+.station-list {
+  padding-left: 18px;
+  font-size: 14px;
+}
+
+.station-list li {
+  margin-bottom: 6px;
+}
+
+/* Κουμπί μέσα στο Popup του χάρτη */
+.popup-btn {
+  margin-top: 8px;
+  padding: 8px 12px;
+  background-color: #d97706;
+  color: #ffffff;
+  border-radius: 6px;
+  font-size: 13px;
+  width: 100%;
+}
+
+/* Κάτω Μενού Πλοήγησης (Bottom Navigation) */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 420px;
+  background-color: #ffffff;
+  border-top: 1px solid #d1d5db;
+  display: flex;
+  justify-content: space-around;
+}
+
+.nav-btn {
+  flex: 1;
+  min-height: 54px;
+  background: none;
+  color: #4b5563;
+  border-radius: 0;
+  font-size: 14px;
+}
+
+.nav-btn.active-nav {
+  color: #1e3a8a;
+  border-top: 3px solid #1e3a8a;
+  background-color: #eff6ff;
+}
